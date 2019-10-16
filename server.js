@@ -1,16 +1,14 @@
-#!/usr/bin/env node
+const http = require('http');
 
-const express = require('express'),
-  app = express(),
-  bodyParser = require('body-parser');
-port = process.env.PORT || 3000;
+const hostname = '127.0.0.1';
+const port = 3000;
 
-app.listen(port);
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Expert in Node.js\n');
+});
 
-console.log('API server started on: ' + port);
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-var routes = require('./app/routes/app_route');
-routes(app);
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
